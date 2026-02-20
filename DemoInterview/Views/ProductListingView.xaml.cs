@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using DemoInterview.ViewModels;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace DemoInterview.Views
 {
@@ -10,6 +12,16 @@ namespace DemoInterview.Views
         public ProductListingView()
         {
             InitializeComponent();
+        }
+
+        private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (DataContext is ProductListingViewModel viewModel &&
+                viewModel.SelectedProduct != null)
+            {
+                viewModel.EditProductCommand.Execute(viewModel.SelectedProduct);
+                Console.WriteLine(viewModel.SelectedProduct.Name);
+            }
         }
     }
 }

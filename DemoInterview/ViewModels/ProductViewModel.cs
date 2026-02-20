@@ -7,7 +7,7 @@ namespace DemoInterview.ViewModels
         private readonly Product _product;
 
         public int Id => _product.Id;
-        public string? Name => _product.Name;
+        public string Name => _product.Name ?? "";
         public double Price => _product.Price;
 
         public ProductViewModel(Product product)

@@ -8,18 +8,19 @@
         xmlns:vms="clr-namespace:DemoInterview.ViewModels"
         mc:Ignorable="d"
         Title="Products" Height="450" Width="800" FontSize="14">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid MaxWidth="600" Margin="20 10" >
-            <Grid.Resources>
-                <DataTemplate DataType="{x:Type vms:CreateProductViewModel}">
-                    <views:CreateProductView/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type vms:ProductListingViewModel}">
-                    <views:ProductListingView/>
-                </DataTemplate>
-            </Grid.Resources>
+    <Grid MaxWidth="600" Margin="20 10" >
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type vms:CreateProductViewModel}">
+                <views:CreateProductView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:ProductListingViewModel}">
+                <views:ProductListingView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vms:UpdateProductViewModel}">
+                <views:UpdateProductView/>
+            </DataTemplate>
+        </Grid.Resources>
 
-            <ContentControl Content="{Binding CurrentViewModel}"/>
-        </Grid>
-    </ScrollViewer>
+        <ContentControl Content="{Binding CurrentViewModel}"/>
+    </Grid>
 </Window>

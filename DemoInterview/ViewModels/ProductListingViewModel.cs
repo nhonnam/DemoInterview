@@ -1,6 +1,5 @@
 ﻿using DemoInterview.Commands;
 using DemoInterview.Services;
-using DemoInterview.Services.IServices;
 using DemoInterview.Stores;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -15,23 +14,37 @@ namespace DemoInterview.ViewModels
 
         public IEnumerable<ProductViewModel> Products => _products;
         public ICommand CreateProductCommand { get; }
-        public ProductListingViewModel(NavigationService navigationService, ProductStore productStore)
+        public ICommand EditProductCommand { get; }
+
+        private ProductViewModel? _selectedProduct;
+
+        public ProductViewModel? SelectedProduct
+        {
+            get => _selectedProduct;
+            set
+            {
+                _selectedProduct = value;
+                OnPropertyChanged(nameof(SelectedProduct));
+            }
+        }
+
+        public ProductListingViewModel(NavigationService createNavigationService, NavigationService updateNavigationService, ProductStore productStore)
         {
             _productStore = productStore;
             _products = new ObservableCollection<ProductViewModel>();
 
-            CreateProductCommand = new NavigateCommand(navigationService);
+            CreateProductCommand = new NavigateCommand(createNavigationService);
+            EditProductCommand = new NavigateCommand(updateNavigationService);
 
             //_products.Add(new ProductViewModel(new Product("Nhon Nam", 22.9)));
             //_products.Add(new ProductViewModel(new Product("Banh Bu", 52.3)));
             //_products.Add(new ProductViewModel(new Product("Meo Meo", 2.3)));
 
-            UpdateProduct().ConfigureAwait(false);
+            _ = UpdateProduct();
         }
 
         private async Task UpdateProduct()
         {
-
             try
             {
                 await _productStore.Load();

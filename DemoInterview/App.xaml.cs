@@ -51,9 +51,18 @@ namespace DemoInterview
             return new CreateProductViewModel(new NavigationService(_navigationStore, CreateProductListingViewModel), _productStore);
         }
 
+        private UpdateProductViewModel CreateUpdateProductViewModel(object parameter)
+        {
+            ProductViewModel productViewModel = (ProductViewModel)parameter;
+
+            return new UpdateProductViewModel(productViewModel, new NavigationService(_navigationStore, CreateProductListingViewModel), _productStore);
+        }
+
         private ProductListingViewModel CreateProductListingViewModel()
         {
-            return new ProductListingViewModel(new NavigationService(_navigationStore, CreateCreateProductViewModel), _productStore);
+            return new ProductListingViewModel(
+                    new NavigationService(_navigationStore, CreateCreateProductViewModel), 
+                    new NavigationService(_navigationStore, CreateUpdateProductViewModel), _productStore);
         }
     }
 }

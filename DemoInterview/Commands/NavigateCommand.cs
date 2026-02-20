@@ -4,17 +4,23 @@ namespace DemoInterview.Commands
 {
     public class NavigateCommand : CommandBase
     {
-        private readonly NavigationService _nagivationService;
+        private readonly NavigationService _navigationService;
 
         public NavigateCommand(NavigationService navigationService)
         {
-            _nagivationService = navigationService;
+            _navigationService = navigationService;
         }
 
         public override void Execute(object? parameter)
         {
-
-            _nagivationService.Navigate();
+            if (parameter != null)
+            {
+                _navigationService.Navigate(parameter);
+            }
+            else
+            {
+                _navigationService.Navigate();
+            }
         }
     }
 }
