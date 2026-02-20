@@ -1,0 +1,25 @@
+﻿<Window x:Class="DemoInterview.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemoInterview"
+        xmlns:views="clr-namespace:DemoInterview.Views"
+        xmlns:vms="clr-namespace:DemoInterview.ViewModels"
+        mc:Ignorable="d"
+        Title="Products" Height="450" Width="800" FontSize="14">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid MaxWidth="600" Margin="20 10" >
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type vms:CreateProductViewModel}">
+                    <views:CreateProductView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:ProductListingViewModel}">
+                    <views:ProductListingView/>
+                </DataTemplate>
+            </Grid.Resources>
+
+            <ContentControl Content="{Binding CurrentViewModel}"/>
+        </Grid>
+    </ScrollViewer>
+</Window>
