@@ -53,6 +53,7 @@ namespace DemoInterview.ViewModels
 
         public ICommand SaveCommand { get; }
         public ICommand BackCommand { get; }
+        public ICommand DeleteProductCommand { get; }
 
         public UpdateProductViewModel(ProductViewModel productViewModel, NavigationService navigationService, ProductStore productStore)
         {
@@ -60,8 +61,9 @@ namespace DemoInterview.ViewModels
             Name = productViewModel.Name;
             Price = productViewModel.Price;
 
-            SaveCommand = new UpdateProductCommand(this, navigationService, productStore);
+            SaveCommand = new UpdateProductCommand(this, productStore);
             BackCommand = new NavigateCommand(navigationService);
+            DeleteProductCommand = new DeleteProductCommand(navigationService, productStore);
         }
     }
 }

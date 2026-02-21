@@ -19,7 +19,7 @@ namespace DemoInterview.Services
             using AppDbContext context = _appDbContextFactory.CreateDbContext();
             context.Products.Add(product);
             await context.SaveChangesAsync();
-        }
+        }     
 
         public async Task<IEnumerable<Product>> GetAllProducts()
         {
@@ -30,15 +30,22 @@ namespace DemoInterview.Services
         public async Task UpdateProduct(Product product)
         {
             using AppDbContext context = _appDbContextFactory.CreateDbContext();
-            Product? existing = await context.Products.FirstOrDefaultAsync(p => p.Id == product.Id);
+            //Product? existing = await context.Products.FirstOrDefaultAsync(p => p.Id == product.Id);
 
-            if (existing == null)
-                throw new Exception("Product not found");
+            //if (existing == null)
+            //    throw new Exception("Product not found");
 
-            existing.Name = product.Name;
-            existing.Price = product.Price;
+            //existing.Name = product.Name;
+            //existing.Price = product.Price;
+            context.Products.Update(product);
 
             await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteProduct(int productId)
+        {
+            using AppDbContext context = _appDbContextFactory.CreateDbContext();
+            await context.Products.Where(p => p.Id == productId).ExecuteDeleteAsync();
         }
     }
 }

@@ -43,6 +43,18 @@ namespace DemoInterview.Stores
             }
         }
 
+        public async Task DeleteProduct(int id)
+        {
+            await _productService.DeleteProduct(id);
+
+            Product? product = _products.FirstOrDefault(p => p.Id == id);
+
+            if (product != null)
+            {
+                _products.Remove(product);
+            }
+        }
+
         public async Task Initialize()
         {
             IEnumerable<Product> products = await _productService.GetAllProducts();

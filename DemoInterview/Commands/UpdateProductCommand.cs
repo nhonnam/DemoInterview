@@ -1,5 +1,4 @@
 ﻿using DemoInterview.Models;
-using DemoInterview.Services;
 using DemoInterview.Stores;
 using DemoInterview.ViewModels;
 using System.ComponentModel;
@@ -10,22 +9,20 @@ namespace DemoInterview.Commands
     public class UpdateProductCommand : AsyncCommandBase
     {
         private readonly UpdateProductViewModel _updateProductViewModel;
-        private readonly NavigationService _navigationService;
         private readonly ProductStore _productStore;
 
-        public UpdateProductCommand(UpdateProductViewModel updateProductViewModel, NavigationService navigationService, ProductStore productStore)
+        public UpdateProductCommand(UpdateProductViewModel updateProductViewModel, ProductStore productStore)
         {
             _updateProductViewModel = updateProductViewModel;
-            _navigationService = navigationService;
             _updateProductViewModel.PropertyChanged += OnViewModelPropertyChanged;
             _productStore = productStore;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrWhiteSpace(_updateProductViewModel.Name) && 
-                double.TryParse(_updateProductViewModel.Price, out double price) && 
-                price > 0 && 
+            return !string.IsNullOrWhiteSpace(_updateProductViewModel.Name) &&
+                double.TryParse(_updateProductViewModel.Price, out double price) &&
+                price > 0 &&
                 base.CanExecute(parameter);
         }
 
@@ -37,8 +34,6 @@ namespace DemoInterview.Commands
             {
                 await _productStore.UpdateProduct(product);
                 MessageBox.Show("Updated product successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                //_navigationService.Navigate();
             }
             catch (Exception ex)
             {

@@ -15,7 +15,15 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Update Product" Style="{StaticResource Header}"/>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Update Product" Style="{StaticResource Header}"/>
+            <Button Grid.Column="1" Content="Delete Product" Command="{Binding DeleteProductCommand}" CommandParameter="{Binding Id}"/>
+        </Grid>
 
         <Grid Grid.Row="1" Margin="0 25 0 0">
             <Grid.RowDefinitions>
