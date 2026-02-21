@@ -6,5 +6,6 @@ namespace DemoInterview.Services.IServices
     {
         Task<IEnumerable<Product>> GetAllProducts();
         Task CreateProduct(Product product);
+        Task UpdateProduct(Product product);
     }
 }

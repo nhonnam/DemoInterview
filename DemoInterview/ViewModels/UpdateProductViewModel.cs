@@ -36,9 +36,9 @@ namespace DemoInterview.ViewModels
             }
         }
 
-        private double _price;
+        private string _price;
 
-        public double Price
+        public string Price
         {
             get
             {

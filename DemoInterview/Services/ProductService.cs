@@ -26,5 +26,19 @@ namespace DemoInterview.Services
             using AppDbContext context = _appDbContextFactory.CreateDbContext();
             return await context.Products.ToListAsync();
         }
+
+        public async Task UpdateProduct(Product product)
+        {
+            using AppDbContext context = _appDbContextFactory.CreateDbContext();
+            Product? existing = await context.Products.FirstOrDefaultAsync(p => p.Id == product.Id);
+
+            if (existing == null)
+                throw new Exception("Product not found");
+
+            existing.Name = product.Name;
+            existing.Price = product.Price;
+
+            await context.SaveChangesAsync();
+        }
     }
 }

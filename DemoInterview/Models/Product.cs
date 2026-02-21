@@ -16,5 +16,12 @@ namespace DemoInterview.Models
             Name = name;
             Price = price;
         }
+
+        public Product(int id, string name, double price)
+        {
+            Id = id;
+            Name = name;
+            Price = price;
+        }
     }
 }

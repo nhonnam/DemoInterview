@@ -7,6 +7,7 @@ namespace DemoInterview.Stores
     {
         private readonly IProductService _productService;
         private readonly List<Product> _products;
+        //private readonly ObservableCollection<Product> _products;
         private readonly Lazy<Task> _initializeLazy;
 
         public IEnumerable<Product> Products => _products;
@@ -28,6 +29,18 @@ namespace DemoInterview.Stores
             await _productService.CreateProduct(product);
 
             _products.Add(product);
+        }
+
+        public async Task UpdateProduct(Product product)
+        {
+            await _productService.UpdateProduct(product);
+
+            int index = _products.ToList().FindIndex(p => p.Id == product.Id);
+
+            if (index >= 0)
+            {
+                _products[index] = product;
+            }
         }
 
         public async Task Initialize()

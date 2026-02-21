@@ -1,7 +1,9 @@
-﻿using DemoInterview.Services;
+﻿using DemoInterview.Models;
+using DemoInterview.Services;
 using DemoInterview.Stores;
 using DemoInterview.ViewModels;
 using System.ComponentModel;
+using System.Windows;
 
 namespace DemoInterview.Commands
 {
@@ -21,21 +23,33 @@ namespace DemoInterview.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrEmpty(_updateProductViewModel.Name) &&
-                _updateProductViewModel.Price > 0 &&
+            return !string.IsNullOrWhiteSpace(_updateProductViewModel.Name) && 
+                double.TryParse(_updateProductViewModel.Price, out double price) && 
+                price > 0 && 
                 base.CanExecute(parameter);
         }
 
-        public override Task ExecuteAsync(object? parameter)
+        public override async Task ExecuteAsync(object? parameter)
         {
-            throw new NotImplementedException();
+            Product product = new(_updateProductViewModel.Id, _updateProductViewModel.Name, double.Parse(_updateProductViewModel.Price));
+
+            try
+            {
+                await _productStore.UpdateProduct(product);
+                MessageBox.Show("Updated product successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                //_navigationService.Navigate();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to update product: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CreateProductViewModel.Name) ||
-                e.PropertyName == nameof(CreateProductViewModel.Price))
-
+            if (e.PropertyName == nameof(UpdateProductViewModel.Name) ||
+                e.PropertyName == nameof(UpdateProductViewModel.Price))
             {
                 OnCanExecuteChanged();
             }

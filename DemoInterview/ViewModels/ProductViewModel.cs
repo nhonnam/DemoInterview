@@ -8,7 +8,7 @@ namespace DemoInterview.ViewModels
 
         public int Id => _product.Id;
         public string Name => _product.Name ?? "";
-        public double Price => _product.Price;
+        public string Price => _product.Price.ToString();
 
         public ProductViewModel(Product product)
         {

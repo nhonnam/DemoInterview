@@ -56,7 +56,7 @@ namespace DemoInterview.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to load products.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Failed to load products. " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

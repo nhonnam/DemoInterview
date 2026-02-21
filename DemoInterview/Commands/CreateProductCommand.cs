@@ -23,14 +23,15 @@ namespace DemoInterview.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrEmpty(_createProductViewModel.Name) &&
-                _createProductViewModel.Price > 0 &&
+            return !string.IsNullOrWhiteSpace(_createProductViewModel.Name) &&
+                double.TryParse(_createProductViewModel.Price, out double price) &&
+                price > 0 &&
                 base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            Product product = new(_createProductViewModel.Name, _createProductViewModel.Price);
+            Product product = new(_createProductViewModel.Name, double.Parse(_createProductViewModel.Price));
 
             try
             {
@@ -41,7 +42,7 @@ namespace DemoInterview.Commands
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to create product.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Failed to create product: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -49,7 +50,6 @@ namespace DemoInterview.Commands
         {
             if (e.PropertyName == nameof(CreateProductViewModel.Name) ||
                 e.PropertyName == nameof(CreateProductViewModel.Price))
-
             {
                 OnCanExecuteChanged();
             }
