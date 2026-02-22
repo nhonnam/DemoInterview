@@ -16,8 +16,7 @@ namespace DemoInterview.Views
 
         private void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (DataContext is ProductListingViewModel viewModel &&
-                viewModel.SelectedProduct != null)
+            if (DataContext is ProductListingViewModel viewModel && viewModel.SelectedProduct != null)
             {
                 viewModel.EditProductCommand.Execute(viewModel.SelectedProduct);
                 Console.WriteLine(viewModel.SelectedProduct.Name);

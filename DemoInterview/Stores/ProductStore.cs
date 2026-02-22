@@ -55,6 +55,11 @@ namespace DemoInterview.Stores
             }
         }
 
+        public IEnumerable<Product> SearchProducts(string searchText)
+        {
+            return _products.Where(p => p.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+        }
+
         public async Task Initialize()
         {
             IEnumerable<Product> products = await _productService.GetAllProducts();
